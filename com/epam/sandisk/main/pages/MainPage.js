@@ -1,11 +1,10 @@
-let wait = require('../util/Wait');
-let actions = require('../util/Actions');
+const wait = require('../util/Wait');
+const actions = require('../util/Actions');
 
 class MainPage {
     constructor() {
         this.ssdRef = element(by.xpath("//div[@id='navbar']//a[@href='/home/ssd.html']"));
         this.usbRadioButton = element(by.xpath("//label//*[contains(text(),'USB')]"));
-        this.mobileStorageImg = element(by.xpath("//*[@alt='Mobile Storage']"));
     }
 
     open() {
@@ -13,8 +12,7 @@ class MainPage {
     }
 
     clickUsbRadioButton() {
-        return Promise.resolve(actions.moveToElement(this.mobileStorageImg))
-            .then(() => wait.waitElementToBeClickable(this.usbRadioButton, 5000))
+        return Promise.resolve(actions.moveToElement(this.usbRadioButton))
             .then(() => this.usbRadioButton.click());
     }
 
