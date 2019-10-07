@@ -1,4 +1,5 @@
-let mainPage = require('../../main/pages/MainPage');
+const MainPage = require('../../main/pages/MainPage');
+let mainPage = new MainPage();
 
 describe('main page', function () {
 
@@ -8,7 +9,9 @@ describe('main page', function () {
 
   it('when usb radio button is clicked it should be displayed at navigation bar', function () {
     mainPage.open()
-      .then(() => mainPage.clickUsbRadioButton())
+      .then(() => {
+        return mainPage.clickUsbRadioButton()
+      })
       .then(expect(mainPage.navigationBarContainsTag("USB")).toEqual(true));
   });
 
