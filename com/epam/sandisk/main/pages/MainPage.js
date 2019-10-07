@@ -1,26 +1,31 @@
-const wait = require('../util/Wait');
-const actions = require('../util/Actions');
+const Wait = require('../util/Wait');
+let wait = new Wait();
+const Actions = require('../util/Actions');
+let actions = new Actions();
 
 class MainPage {
     constructor() {
-        this.ssdRef = element(by.xpath("//div[@id='navbar']//a[@href='/home/ssd.html']"));
+        this.ssdRef = element(by.css("div#navbar a[href='/home/ssd.html']"));
         this.usbRadioButton = element(by.xpath("//label//*[contains(text(),'USB')]"));
     }
 
     open() {
-        return browser.get('https://www.sandisk.com');
+        return browser.get(browser.baseUrl);
     }
 
     clickUsbRadioButton() {
-        return Promise.resolve(actions.moveToElement(this.usbRadioButton))
-            .then(() => this.usbRadioButton.click());
+        return actions.moveAndClick(this.usbRadioButton);
     }
 
     navigationBarContainsTag(tag) {
-        let searchElement = element(by.xpath(`//div[@class='subnav fixed']//*[contains(text(),'${tag}')]`));
-        return Promise.resolve(wait.waitElementToBeVisible(searchElement), 5000)
-            .then(() => searchElement.getText())
-            .then((text) => text === tag);
+        let searchElement = element(by.xpath(format(this.navigationBarElementXpath, tag)));
+        return wait.waitElementToBeVisible(searchElement)
+            .then(() => {
+                return searchElement.getText()
+            })
+            .then((text) => {
+                return text === tag
+            });
     }
 
     clickSsdRef() {
@@ -29,4 +34,4 @@ class MainPage {
 
 }
 
-module.exports = new MainPage();
+module.exports = MainPage;
