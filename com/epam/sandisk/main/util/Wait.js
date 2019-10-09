@@ -3,13 +3,13 @@ class Wait {
         this.EC = protractor.ExpectedConditions;
     }
 
-    waitElementToBeVisible(element, timeout) {
-        return browser.wait(this.EC.visibilityOf(element), timeout);
+    waitElementToBeVisible(element) {
+        return browser.wait(this.EC.visibilityOf(element), 5000);
     }
 
-    waitElementToBeClickable(element, timeout) {
-        return browser.wait(this.EC.elementToBeClickable(element), timeout);
+    waitElementToBeClickable(element) {
+        return browser.wait(this.EC.elementToBeClickable(element), 5000);
     }
 }
 
-module.exports = new Wait();
+module.exports = Wait;
